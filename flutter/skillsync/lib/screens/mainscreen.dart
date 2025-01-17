@@ -13,8 +13,21 @@ class _MainscreenState extends State<Mainscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SkillSync'),
+        title: const Text(
+          'SkillSync',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         elevation: 5,
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.popAndPushNamed(context, '/login');
+            }, 
+            icon: Icon(Icons.exit_to_app)
+          ),
+        ],
       ),
       body: Center(child: Text('Test page'),),
     );

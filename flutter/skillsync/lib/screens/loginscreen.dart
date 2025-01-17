@@ -17,17 +17,31 @@ class _LoginscreenState extends State<Loginscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SkillSync'),
+        title: const Text(
+          'SkillSync',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         elevation: 5,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('Login: '),
+            const Text(
+              'Login: ',
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 34,
+              ),
+            ),
             const SizedBox(height: 30,),
             TextField(
               controller: emailController,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
               decoration: InputDecoration(
                 label: const Text('Email'),
               ),
@@ -38,6 +52,9 @@ class _LoginscreenState extends State<Loginscreen> {
               decoration: InputDecoration(
                 label: const Text('Password'),
               ),
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 10,),
             ElevatedButton(
@@ -47,7 +64,10 @@ class _LoginscreenState extends State<Loginscreen> {
                 passwordController.clear();
                 Navigator.popAndPushNamed(context, '/main');
               }, 
-              child: const Text('Login'),
+              child: Text(
+                'Login',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.popAndPushNamed(context, '/sign'), 

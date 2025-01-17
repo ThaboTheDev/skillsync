@@ -17,14 +17,25 @@ class _SignupscreenState extends State<Signupscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('SkillSync'),
+        title: const Text(
+          'SkillSync',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         elevation: 5,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('SignUp'),
+            const Text(
+              'SignUp:',
+               style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 34,
+              ),
+            ),
             const SizedBox(height: 30,),
             TextField(
               controller: emailController,
@@ -47,7 +58,10 @@ class _SignupscreenState extends State<Signupscreen> {
                 passwordController.clear();
                 Navigator.popAndPushNamed(context, '/login');
               }, 
-              child: const Text('SignUp'),
+              child: const Text(
+                'SignUp',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
             ),
             TextButton(
               onPressed: () => Navigator.popAndPushNamed(context, '/login'), 

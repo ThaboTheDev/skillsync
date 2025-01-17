@@ -21,12 +21,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       initialRoute: '/login',
       routes: {
         '/login': (context) => const Loginscreen(),
         '/sign' : (context) => const Signupscreen(),
         '/main' : (context) => const Mainscreen(),
       },
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+      ),
     );
   }
 }
