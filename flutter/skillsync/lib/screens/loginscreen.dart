@@ -26,54 +26,69 @@ class _LoginscreenState extends State<Loginscreen> {
         elevation: 5,
       ),
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'Login: ',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 34,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Login: ',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 34,
+                ),
               ),
-            ),
-            const SizedBox(height: 30,),
-            TextField(
-              controller: emailController,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 30,),
+              TextField(
+                controller: emailController,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+                decoration: InputDecoration(
+                  hintText: 'Email',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                ),
               ),
-              decoration: InputDecoration(
-                label: const Text('Email'),
+              const SizedBox(height: 10,),
+              TextField(
+                controller: passwordController,
+                decoration: InputDecoration(
+                  hintText: 'Password',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                ),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
               ),
-            ),
-            const SizedBox(height: 10,),
-            TextField(
-              controller: passwordController,
-              decoration: InputDecoration(
-                label: const Text('Password'),
+              const SizedBox(height: 10,),
+              ElevatedButton(
+                onPressed: () async  {
+                  var valid = await login(emailController.text, passwordController.text);
+                  if (valid) {
+                    emailController.clear();
+                    passwordController.clear();
+                    Navigator.popAndPushNamed(context, '/main');
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Login failed')),
+                    );
+                  }
+                }, 
+                child: Text(
+                  'Login',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ),
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
+              TextButton(
+                onPressed: () => Navigator.popAndPushNamed(context, '/sign'), 
+                child: const Text('signup'),
               ),
-            ),
-            const SizedBox(height: 10,),
-            ElevatedButton(
-              onPressed: () {
-                login(emailController.text, passwordController.text);
-                emailController.clear();
-                passwordController.clear();
-                Navigator.popAndPushNamed(context, '/main');
-              }, 
-              child: Text(
-                'Login',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
-            ),
-            TextButton(
-              onPressed: () => Navigator.popAndPushNamed(context, '/sign'), 
-              child: const Text('signup'),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
