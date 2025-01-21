@@ -12,6 +12,12 @@ class _SignupscreenState extends State<Signupscreen> {
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController surnameController = TextEditingController();
+  String? selectedRole;
+  String? selectedExpertise;
+  final List<String> dropdownRoles = ['mentor', 'mentee'];
+  final List<String> dropdownExpertise = ['Junior', 'intermediate','senior'];
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +46,37 @@ class _SignupscreenState extends State<Signupscreen> {
               ),
               const SizedBox(height: 30,),
               TextField(
+                controller: nameController,
+                decoration: InputDecoration(
+                  hintText: 'Name',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0))
+                  ),
+                ),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10,),
+              TextField(
+                controller: surnameController,
+                decoration: InputDecoration(
+                  hintText: 'Surname',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                  ),
+                ),
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10,),
+              TextField(
                 controller: emailController,
                 decoration: InputDecoration(
                   hintText: 'Email',
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30.0))
+                    borderRadius: BorderRadius.all(Radius.circular(30.0)),
                   ),
                 ),
                 style: TextStyle(
@@ -65,9 +97,47 @@ class _SignupscreenState extends State<Signupscreen> {
                 ),
               ),
               const SizedBox(height: 10,),
+              DropdownButton<String>(
+                value: selectedRole,
+                hint: Text('Select a Role'),
+                items: dropdownRoles.map((String item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item),
+                  );
+                }).toList(),
+                onChanged: (String? newRole) {
+                  setState(() {
+                    selectedRole = newRole;
+                  });
+                },
+              ),
+              const SizedBox(height: 10,),
+              DropdownButton<String>(
+                value: selectedExpertise,
+                hint: Text('Select your Expertise'),
+                items: dropdownExpertise.map((String item) {
+                  return DropdownMenuItem<String>(
+                    value: item,
+                    child: Text(item),
+                  );
+                }).toList(),
+                onChanged: (String? newExpertise) {
+                  setState(() {
+                    selectedExpertise = newExpertise;
+                  });
+                },
+              ),
+              const SizedBox(height: 10,),
               ElevatedButton(
                 onPressed: () async {
-                  var valid = await signUpWithEmail(emailController.text, passwordController.text);
+                  var valid = await signUpWithEmail(
+                    nameController.text + surnameController.text, 
+                    emailController.text,
+                    passwordController.text,
+                    selectedRole!,
+                    selectedExpertise!
+                  );
                   if (valid) {
                     emailController.clear();
                     passwordController.clear();
