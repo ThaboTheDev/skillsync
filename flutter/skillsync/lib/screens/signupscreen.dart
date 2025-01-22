@@ -19,6 +19,58 @@ class _SignupscreenState extends State<Signupscreen> {
   final List<String> dropdownRoles = ['mentor', 'mentee'];
   final List<String> dropdownExpertise = ['Junior', 'intermediate','senior'];
 
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+
+  Future<void> _signup() async {
+    showLoadingDialog(context);
+
+    var valid = await signUpWithEmail(
+      nameController.text + surnameController.text, 
+      emailController.text,
+      passwordController.text,
+      selectedRole!,
+      selectedExpertise!
+    );
+    if (valid) {
+      emailController.clear();
+      passwordController.clear();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green,),
+              const SizedBox(width: 10,),
+              Text('Signup successful!')
+            ],
+          )
+        ),
+      );
+      Navigator.popAndPushNamed(context, '/login');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.error, color: Colors.red,),
+              const SizedBox(width: 10,),
+              Text('Signup failed!')
+            ],
+          )
+        ),
+      );
+      Navigator.pop(context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -131,22 +183,7 @@ class _SignupscreenState extends State<Signupscreen> {
               const SizedBox(height: 10,),
               ElevatedButton(
                 onPressed: () async {
-                  var valid = await signUpWithEmail(
-                    nameController.text + surnameController.text, 
-                    emailController.text,
-                    passwordController.text,
-                    selectedRole!,
-                    selectedExpertise!
-                  );
-                  if (valid) {
-                    emailController.clear();
-                    passwordController.clear();
-                    Navigator.popAndPushNamed(context, '/login');
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Signup failed')),
-                    );
-                  }
+                  await _signup();
                 }, 
                 child: const Text(
                   'SignUp',

@@ -13,6 +13,54 @@ class _LoginscreenState extends State<Loginscreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  Future<void> _login(email, password) async {
+
+    showLoadingDialog(context);
+
+    var valid = await login(email, password);
+    if (valid) {
+      emailController.clear();
+      passwordController.clear();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.check_circle, color: Colors.green,),
+              const SizedBox(width: 10,),
+              Text('Login successful!')
+            ],
+          )
+        ),
+      );
+      // Navigator.pop(context);
+      Navigator.popAndPushNamed(context, '/main');
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Row(
+            children: [
+              Icon(Icons.error, color: Colors.red,),
+              const SizedBox(width: 10,),
+              Text('Login failed!')
+            ],
+          )
+        ),
+      );
+      Navigator.pop(context);
+    }
+  }
+
+  void showLoadingDialog(BuildContext context) {
+    showDialog(
+      context: context, 
+      builder: (BuildContext context) {
+        return Center(
+          child: CircularProgressIndicator(),
+        );
+      },
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,17 +114,8 @@ class _LoginscreenState extends State<Loginscreen> {
               ),
               const SizedBox(height: 10,),
               ElevatedButton(
-                onPressed: () async  {
-                  var valid = await login(emailController.text, passwordController.text);
-                  if (valid) {
-                    emailController.clear();
-                    passwordController.clear();
-                    Navigator.popAndPushNamed(context, '/main');
-                  } else {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Login failed')),
-                    );
-                  }
+                onPressed: () async {
+                  await _login(emailController.text, passwordController.text);
                 }, 
                 child: Text(
                   'Login',
