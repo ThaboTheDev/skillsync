@@ -35,7 +35,8 @@ class MainApp extends StatelessWidget {
         '/profile' : (context) => const Profilescreen(),
       },
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
+        // scaffoldBackgroundColor: Colors.grey,
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
       ),
     );
   }

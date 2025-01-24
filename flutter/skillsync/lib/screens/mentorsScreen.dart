@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:search_bar/search_bar.dart';
 
 class Mentorsscreen extends StatefulWidget{
   const Mentorsscreen({super.key});
@@ -12,7 +13,7 @@ class _MentorsscreenState extends State<Mentorsscreen> {
   Widget _topPart() {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.green,
+        color: Theme.of(context).colorScheme.primaryContainer,
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(20),
           bottomRight: Radius.circular(20),
@@ -36,13 +37,16 @@ class _MentorsscreenState extends State<Mentorsscreen> {
                     ),
                   ),
                 ),
-                IconButton(
-                  onPressed: () {}, 
-                  iconSize: 50,
-                  icon: Icon(Icons.account_circle),
+                Center(
+                  child: IconButton(
+                    onPressed: () {}, 
+                    iconSize: 50,
+                    icon: Icon(Icons.account_circle),
+                  ),
                 ),
               ],
             ),
+            Text('Search for bookins or meetings :'),
           ],
         ),
       ),
@@ -55,7 +59,7 @@ class _MentorsscreenState extends State<Mentorsscreen> {
       child: Container(
         height: 100,
         decoration: BoxDecoration(
-          color: Colors.greenAccent,
+          color: Theme.of(context).colorScheme.secondaryContainer,
           borderRadius: BorderRadius.all(
             Radius.circular(20)
           ),
@@ -129,6 +133,90 @@ class _MentorsscreenState extends State<Mentorsscreen> {
     );
   }
 
+  Widget _booking() {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20)
+          ),
+          color: Theme.of(context).colorScheme.primaryContainer,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Bookings',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {}, 
+                    child: const Text('More')
+                  ),
+                ],
+              ),
+              Center(
+                child: Icon(Icons.book,size: 70,),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _meetings() {
+    return Padding(
+      padding: EdgeInsets.all(10.0),
+      child: Container(
+        height: 150,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.primaryContainer,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20)
+          )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Meetings',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {}, 
+                    child: const Text('More'),
+                  ),
+                ],
+              ),
+              Center(
+                child: Icon(Icons.meeting_room, size: 70,),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,6 +225,14 @@ class _MentorsscreenState extends State<Mentorsscreen> {
         children: [
           _topPart(),
           _upcomingMeeting(),
+          const Text(
+            'Activities:',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          _booking(),
+          _meetings(),
         ],
       ),
     );
