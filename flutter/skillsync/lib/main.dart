@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:skillsync/screens/profilescreen.dart';
+import 'package:skillsync/screens/settingsscreen.dart';
 import 'firebase_options.dart';
 import 'screens/signupscreen.dart';
 import 'screens/loginscreen.dart';
 import 'screens/mainscreen.dart';
+import 'screens/mentorsScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +30,9 @@ class MainApp extends StatelessWidget {
         '/login': (context) => const Loginscreen(),
         '/sign' : (context) => const Signupscreen(),
         '/main' : (context) => const Mainscreen(),
+        '/mentor' : (context) => const Mentorsscreen(),
+        '/settings' : (context) => const Settingsscreen(),
+        '/profile' : (context) => const Profilescreen(),
       },
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
