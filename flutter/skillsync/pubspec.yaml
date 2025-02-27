@@ -13,7 +13,6 @@ dependencies:
   firebase_auth: ^5.4.0 
   cloud_firestore: any
   firebase_storage: ^12.4.0
-  search_bar: any
 
 dev_dependencies:
   flutter_test:

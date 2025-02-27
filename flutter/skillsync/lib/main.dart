@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:skillsync/screens/profilescreen.dart';
-import 'package:skillsync/screens/settingsscreen.dart';
 import 'firebase_options.dart';
 import 'screens/signupscreen.dart';
 import 'screens/loginscreen.dart';
 import 'screens/mainscreen.dart';
-import 'screens/mentorsScreen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,17 +23,23 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/login',
-      routes: {
-        '/login': (context) => const Loginscreen(),
-        '/sign' : (context) => const Signupscreen(),
-        '/main' : (context) => const Mainscreen(),
-        '/mentor' : (context) => const Mentorsscreen(),
-        '/settings' : (context) => const Settingsscreen(),
-        '/profile' : (context) => const Profilescreen(),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/login':
+            return MaterialPageRoute(builder: (context) => Loginscreen());
+
+          case '/sign':
+            return MaterialPageRoute(builder: (context) => Signupscreen());
+
+          case '/main':
+            return MaterialPageRoute(builder: (context) => Mainscreen());
+
+          default:
+            return MaterialPageRoute(builder: (context) => Mainscreen());
+        }
       },
       theme: ThemeData(
-        // scaffoldBackgroundColor: Colors.grey,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blueGrey.shade100),
       ),
     );
   }
